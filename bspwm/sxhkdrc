@@ -1,0 +1,75 @@
+
+# bspwm hotkeys
+#
+
+# reload sxhkd configuration file
+super + alt + shift + s
+	pkill -USR1 -x sxhkd ;\
+	notify-send "sxhkd: sxhkd has been restarted."
+
+super + shift + s
+	scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/screenshots && mv $f ~/screenshots && xclip -selection clipboard -t image/png -i ~/screenshots/`ls -1 -t ~/screenshots | head -1`'
+
+alt + t
+	kitty
+
+# close and kill
+alt + shift + c
+	bspc node -c
+
+
+# send focused node to another desktop
+alt + shift + {1-9,0}
+	bspc node focused -d focused:'^{1-9,10}' 
+
+# focus desktop by index
+alt + {1-9,0}
+	bspc desktop -f focused:'^{1-9,10}'
+
+#fullscreen window
+alt + f
+	bspc node -t ~fullscreen
+
+alt + shift + f
+	firefox
+
+#switch monitors
+alt + {Left,Right}
+    bspc monitor {west,east} -f
+
+# move windows to differnat monitor
+alt + shift + {Left,Down,Up,Right}
+	dir={west,south,north,east}; \
+	bspc node -s "$dir.local" --follow \
+	    || bspc node -m "$dir" --follow
+
+# program launcher
+alt + space
+	rofi -show drun -hide-scrollbar
+
+alt + shift + s
+	rofi -show ssh -terminal kitty
+
+
+#
+# Volume
+#
+XF86AudioMute
+	wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
+XF86Audio{Raise,Lower}Volume
+	wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{+,-}
+
+#
+# Media Controls
+#
+XF86Audio{Play,Prev,Next}
+	playerctl --player=vlc,spotify {play-pause,previous,next}
+
+#
+# Brightness
+#
+# To adjust the brightness the user must be added to the video group:
+# sudo gpasswd -a $USER video
+XF86MonBrightness{Up,Down}
+	brightnessctl set 10%{+,-}

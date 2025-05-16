@@ -1,16 +1,13 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
-      ./nvidia.nix
       ./steam.nix
       ./home-manager.nix
+	  ./laptop.nix
+	  ./bspwm/bspwm.nix
     ];
 
   # Bootloader.
@@ -18,13 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = ["ipv6.disable=1"];
 
-  networking.hostName = "nixos"; # Define your hostname.
-  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.hostName = "nixlaptop"; # Define your hostname.
   
   # Enable networking
   networking.enableIPv6 = false;
@@ -52,63 +43,26 @@
  
   environment.systemPackages = [
     pkgs.kitty
-    pkgs.waybar
-    pkgs.hyprpaper
-    pkgs.rofi-wayland
-    pkgs.wofi
-    pkgs.swaylock-effects
+    pkgs.rofi
     pkgs.wget
-    pkgs.alacritty
     pkgs.tmux
-    pkgs.fzf
-    pkgs.zoxide
-    pkgs.fd
-    pkgs.bat
-    pkgs.thefuck
     pkgs.git
     pkgs.nerdfetch
-    pkgs.font-awesome_5
-    pkgs.xfce.thunar
-    pkgs.zsh
-    pkgs.oh-my-posh
-    pkgs.chromium
-    pkgs.xwayland
     pkgs.dunst
     pkgs.libnotify
     pkgs.pavucontrol
     pkgs.vesktop
     pkgs.neofetch
-    pkgs.dmenu    
-    pkgs.bspwm
-    pkgs.sxhkd
-    pkgs.polybar
-    pkgs.openttd
-    pkgs.lutris
     pkgs.feh
-    pkgs.mongodb-compass
     pkgs.scrot
     pkgs.xclip
+	pkgs.bluez
+	pkgs.bc
+	pkgs.brightnessctl
+	pkgs.polybar-pulseaudio-control
+	pkgs.blueman
+	pkgs.docker
   ];
-
-  # Enable the X11 windowing system and bspwm  
-  services.xserver = {
-    enable = true;
-
-    windowManager.bspwm.enable = true;
-    windowManager.bspwm.sxhkd.package = pkgs.sxhkd;
-    windowManager.bspwm.sxhkd.configFile = "/home/nix/sxhkdrc";
-    desktopManager.xterm.enable = false;
-
-    xkb = {
-      layout = "au";
-      variant = "";
-    };
-  };
-
-  programs.hyprland = {
-    enable = false;
-    xwayland.enable = false;
-  };
 
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
@@ -160,32 +114,13 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  fonts.fontDir.enable = true;
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
+  # Disale Firewall
   networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  # System version
+  system.stateVersion = "24.11";
 
 
   xdg.portal.enable = true;
