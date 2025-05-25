@@ -7,13 +7,21 @@
 		  dynamic_background_opacity = true;
           enable_audio_bell = false;
       	  confirm_os_window_close = -1;
-		  background_opacity = "0.5";
+		  background_opacity = "0.9";
           background_blur = 5;
+		
+		  font_family = "JetBrainsMono Nerd Font";
+		  bold_font = "auto";
+		  italic_font = "auto";
+		  bold_italic_font = "auto";
+
 	  	  foreground = "#ebdbb2";
 	  	  background = "#282828";
+
 	  	  selection_foreground = "#655b53";
 	  	  selection_background = "#ebdbb2";
-	  	  url_color = "#d65c0d";
+	  	  
+		  url_color = "#d65c0d";
 
 	  	  color0 = "#272727";
 	  	  color8 = "#928373";

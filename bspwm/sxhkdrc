@@ -38,10 +38,18 @@ alt + {Left,Right}
     bspc monitor {west,east} -f
 
 # move windows to differnat monitor
-alt + shift + {Left,Down,Up,Right}
+super + alt + {Left,Down,Up,Right}
 	dir={west,south,north,east}; \
 	bspc node -s "$dir.local" --follow \
 	    || bspc node -m "$dir" --follow
+
+# Resize focused window with Super + Ctrl + Arrow keys
+alt + ctrl + {Left,Down,Up,Right}
+    bspc node -z {left -20 0, bottom 0 20, top 0 -20, right 20 0}
+
+# Rove window
+alt + shift + {Left,Down,Up,Right}
+    bspc node -s {west,south,north,east}
 
 # program launcher
 alt + space
@@ -50,6 +58,8 @@ alt + space
 alt + shift + s
 	rofi -show ssh -terminal kitty
 
+alt + shift + b
+	/home/hamish/.config/rofi/scripts/rofi-bluetooth/rofi-bluetooth
 
 #
 # Volume

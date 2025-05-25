@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
 	programs.zsh = {
@@ -10,6 +10,7 @@
       	shellAliases = {
         	ll = "ls -l";
         	update = "sudo nixos-rebuild switch -I nixos-config=/etc/nixconfig";
+			upgrade = "sudo nixos-rebuild switch -I nixos-config=/etc/nixconfig --upgrade";
 			cd = "z";
 			sesh = "~/projects/scripts/sesh.sh";
       	};
@@ -74,6 +75,8 @@
 			eval "$(zoxide init zsh)"
 
 			export PATH=~/.local/bin:$PATH
+
+			nerdfetch
       '';
 	};
   

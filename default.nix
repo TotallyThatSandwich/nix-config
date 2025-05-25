@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  nixpkgs.config.allowBroken = true;
   imports =
     [
       ./hardware-configuration.nix
@@ -42,27 +43,45 @@
   environment.localBinInPath = true;
  
   environment.systemPackages = [
-    pkgs.kitty
-    pkgs.rofi
     pkgs.wget
     pkgs.tmux
     pkgs.git
-    pkgs.nerdfetch
-    pkgs.dunst
-    pkgs.libnotify
-    pkgs.pavucontrol
-    pkgs.vesktop
+	
+	# fetch
     pkgs.neofetch
-    pkgs.feh
-    pkgs.scrot
-    pkgs.xclip
+	pkgs.nerdfetch
+	pkgs.freshfetch
+    pkgs.jp2a
+
+	# bluetooth
 	pkgs.bluez
 	pkgs.bc
-	pkgs.brightnessctl
-	pkgs.polybar-pulseaudio-control
 	pkgs.blueman
-	pkgs.docker
+
+	# brightness
+	pkgs.brightnessctl
+	
+	# audio
+	pkgs.polybar-pulseaudio-control
+	pkgs.pavucontrol
+	
+	pkgs.nemo
+	pkgs.gnome-tweaks
+	
+	# apps
+	pkgs.spotify
+	pkgs.discord
+    pkgs.kitty
   ];
+	
+  services.xserver = {
+    enable = true;
+
+    xkb = {
+      layout = "au";
+      variant = "";
+    };
+  };
 
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";

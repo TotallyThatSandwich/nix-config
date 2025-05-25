@@ -12,7 +12,9 @@ in
   	home-manager.users.hamish = {
 		/* The home.stateVersion option does not have a default and must be set */
     	home.stateVersion = "24.11";
-    
+   		
+		home.file.".mozilla/firefox/yourprofile.default-release/chrome/userChrome.css".source = ./themes/Firefox-Mod-Blur/userChrome.css;
+
 		fonts.fontconfig.enable = true;
 
 		home.packages = with pkgs; [ 
@@ -38,6 +40,11 @@ in
     		./apps/kitty.nix
 			./apps/zsh.nix
 			./apps/neovim.nix
+			./apps/polybar.nix
+			./apps/gtk.nix
+			./apps/neofetch.nix
+			./apps/picom.nix
+			./apps/tmux.nix
   		];
 
   	};
