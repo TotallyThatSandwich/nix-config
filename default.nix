@@ -8,6 +8,7 @@
       ./steam.nix
       ./home-manager.nix
 	  ./bspwm/bspwm.nix
+      ./nvidia.nix
     ];
 
   # Bootloader.
