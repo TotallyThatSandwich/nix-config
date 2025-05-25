@@ -7,7 +7,6 @@
       ./hardware-configuration.nix
       ./steam.nix
       ./home-manager.nix
-	  ./laptop.nix
 	  ./bspwm/bspwm.nix
     ];
 
