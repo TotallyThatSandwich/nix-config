@@ -25,9 +25,15 @@
         	cmp-nvim-lsp
 			nvim-cmp
 			neodev-nvim
+
 			luasnip
 			lualine-nvim
 			lualine-lsp-progress
+
+			indent-blankline-nvim
+			neogit
+			nvim-comment
+
 			{
 	  			plugin = nvim-tree-lua;
 
@@ -59,6 +65,8 @@
 			${builtins.readFile ./nvim/plugin/treesitter.lua}
 			${builtins.readFile ./nvim/plugin/cmp.lua}
 			${builtins.readFile ./nvim/plugin/lua-line.lua}
+
+			${builtins.readFile ./nvim/plugin/other.lua}
       	'';
     };
 }

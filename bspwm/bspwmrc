@@ -50,6 +50,8 @@ bspc rule -a Thunderbird floating=on
 bspc rule -a Yad floating=on
 
 # Autostart
+xinput --disable 10
+xinput --disable 9
 ~/.config/polybar/launch.sh
 picom &
 feh --bg-center --bg-fill ./Pictures/background.jpg
