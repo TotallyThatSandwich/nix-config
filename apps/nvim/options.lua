@@ -17,7 +17,6 @@ vim.o.termguicolors = true
 
 vim.o.mouse = 'a'
 
-
 vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', {
     noremap = true
 })

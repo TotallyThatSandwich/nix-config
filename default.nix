@@ -67,11 +67,34 @@
 	
 	pkgs.nemo
 	pkgs.gnome-tweaks
-	
+
 	# apps
 	pkgs.spotify
 	pkgs.discord
     pkgs.kitty
+	pkgs.libreoffice-qt6
+	pkgs.dbeaver-bin
+	pkgs.vscodium
+	pkgs.sabnzbd
+	pkgs.localsend
+	pkgs.deluge
+	pkgs.nzbget
+	pkgs.vlc
+	pkgs.postman
+	pkgs.zip
+	pkgs.unzip
+	pkgs.termius
+	
+	pkgs.redis
+	pkgs.postgresql
+	pkgs.infisical
+	pkgs.shellify
+	pkgs.ansible
+	pkgs.cloudflared
+	pkgs.kubectl
+	pkgs.kubernetes-helm
+	pkgs.openssl
+
   ];
 	
   services.xserver = {
@@ -112,6 +135,9 @@
     #media-session.enable = true;
   };
 
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
   # Enable Zsh
   programs.zsh.enable = true;
 
@@ -144,4 +170,7 @@
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
 }
