@@ -9,6 +9,8 @@ let
     /etc/nixconfig/bspwm/bspwmrc-laptop
   else
     /etc/nixconfig/bspwm/bspwmrc-desktop; # fallback
+	
+  sxhkdrc = /etc/nixconfig/bspwm/sxhkdrc;
 in
 {
   environment.systemPackages = [
@@ -31,7 +33,7 @@ in
     windowManager.bspwm.enable = true;
 	windowManager.bspwm.configFile = bspwmrc;
     windowManager.bspwm.sxhkd.package = pkgs.sxhkd;
-    windowManager.bspwm.sxhkd.configFile = "/etc/nixconfig/bspwm/sxhkdrc";
+    windowManager.bspwm.sxhkd.configFile = sxhkdrc;
   };
   
 }

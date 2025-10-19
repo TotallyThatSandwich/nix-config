@@ -26,7 +26,6 @@ in {
       black      = ${gruvboxColors.black}
 
       [bar/main]
-	  monitor = ${env:MONITOR:}
       width = 100%
       height = 28pt
 	  radius = 6
