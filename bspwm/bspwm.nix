@@ -1,5 +1,15 @@
 { config, pkgs, ... }:
 
+let
+  hostname = config.networking.hostName;
+
+  bspwmrc = if hostname == "nixos-desktop" then
+    /etc/nixconfig/bspwm/bspwmrc-desktop
+  else if hostname == "nixos-laptop" then
+    /etc/nixconfig/bspwm/bspwmrc-laptop
+  else
+    /etc/nixconfig/bspwm/bspwmrc-desktop; # fallback
+in
 {
   environment.systemPackages = [
 	pkgs.polybar
@@ -19,7 +29,7 @@
 	#videoDrivers = [ "intel" ];
 
     windowManager.bspwm.enable = true;
-	windowManager.bspwm.configFile = "/etc/nixconfig/bspwm/bspwmrc";
+	windowManager.bspwm.configFile = bspwmrc;
     windowManager.bspwm.sxhkd.package = pkgs.sxhkd;
     windowManager.bspwm.sxhkd.configFile = "/etc/nixconfig/bspwm/sxhkdrc";
   };

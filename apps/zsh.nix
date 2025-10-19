@@ -9,8 +9,8 @@
 
       	shellAliases = {
         	ll = "ls -l";
-        	update = "sudo nixos-rebuild switch -I nixos-config=/etc/nixconfig";
-			upgrade = "sudo nixos-rebuild switch -I nixos-config=/etc/nixconfig --upgrade";
+        	update = "sudo nixos-rebuild switch";
+			upgrade = "sudo nixos-rebuild switch --upgrade";
 			cd = "z";
 			sesh = "~/projects/scripts/sesh.sh";
       	};

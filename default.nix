@@ -15,8 +15,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = ["ipv6.disable=1"];
-
-  networking.hostName = "nixlaptop"; # Define your hostname.
   
   # Enable networking
   networking.enableIPv6 = false;
