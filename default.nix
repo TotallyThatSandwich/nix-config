@@ -2,7 +2,7 @@
 
 {
   nixpkgs.config.allowBroken = true;
-  imports =
+  imports = 
     [
       ./hardware-configuration.nix
       ./steam.nix
@@ -83,7 +83,8 @@
 	pkgs.zip
 	pkgs.unzip
 	pkgs.termius
-	
+	pkgs.darktable
+
 	pkgs.redis
 	pkgs.postgresql
 	pkgs.infisical

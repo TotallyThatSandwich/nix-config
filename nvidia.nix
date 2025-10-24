@@ -1,19 +1,40 @@
 { pkgs, config, libs, ... }:
 
+let
+  hostname = config.networking.hostName;
+
+  nvidia-enabled = if hostname == "nixos-desktop" then
+    true
+  else if hostname == "nixos-laptop" then
+    false
+  else
+    false; # fallback
+
+  nvidia-xserver = if hostname == "nixos-desktop" then
+    ["nvidia"]
+  else if hostname == "nixos-laptop" then
+	[
+  	  "modesetting"
+  	  "fbdev"
+	] 
+  else
+	[
+  	  "modesetting"
+  	  "fbdev"
+	]; 
+
+in
 {
-
-
-
 # Enable OpenGL
   hardware.graphics.enable = true;
   
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = nvidia-xserver;
 
   hardware.nvidia = {
 
     # Modesetting is required.
-    modesetting.enable = true;
+    modesetting.enable = nvidia-enabled;
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
     powerManagement.enable = false;
@@ -32,12 +53,12 @@
 
     # Enable the Nvidia settings menu,
 	# accessible via `nvidia-settings`.
-    nvidiaSettings = true;
+    nvidiaSettings = nvidia-enabled;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-    forceFullCompositionPipeline = true;
+    forceFullCompositionPipeline = nvidia-enabled;
 
     prime = { 
 		# Make sure to use the correct Bus ID values for your system!
