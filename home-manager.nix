@@ -2,6 +2,15 @@
 
 let
   	home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
+	  hostname = config.networking.hostName;
+
+ 	polybar = if hostname == "nixos-desktop" then
+    	./apps/polybar-desktop.nix
+  	else if hostname == "nixos-laptop" then
+    	./apps/polybar-laptop.nix
+  	else
+    	./apps/polybar-laptop.nix; # fallback
+
 in
 
 {
@@ -40,11 +49,13 @@ in
     		./apps/kitty.nix
 			./apps/zsh.nix
 			./apps/neovim.nix
-			./apps/polybar.nix
 			./apps/gtk.nix
 			./apps/neofetch.nix
 			./apps/picom.nix
 			./apps/tmux.nix
+			./apps/rofi.nix
+
+			polybar
   		];
 
   	};

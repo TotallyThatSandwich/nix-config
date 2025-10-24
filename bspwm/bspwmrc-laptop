@@ -3,8 +3,7 @@
 pgrep -x sxhkd > /dev/null || sxhkd -c /etc/nixconfig/bspwm/sxhkdrc &
 
 # Monitors
-bspc monitor DP-4 -d 1 2 3 4 5
-bspc monitor HDMI-0 -d 6 7 8 9 discord
+bspc monitor -d 1 2 3 4 5 6 7 8 9 discord
 
 # Padding
 bspc config top_padding        0
@@ -59,3 +58,15 @@ xinput --disable 9
 picom &
 feh --bg-center --bg-fill ./Pictures/background.jpg
 dunst &
+
+
+bspc rule -a discord desktop=discord follow=off
+discord &
+
+bspc rule -a firefox desktop=6 follow=off -o
+firefox &
+
+bspc rule -a kitty desktop=1 follow=off -o
+kitty &
+
+

@@ -59,3 +59,14 @@ bspc rule -a Yad floating=on
 picom &
 feh --bg-center --bg-fill ./Pictures/background.jpg
 dunst &
+
+
+bspc rule -a discord desktop=discord follow=off
+discord &
+
+bspc rule -a firefox desktop=6 follow=off -o
+firefox &
+
+bspc rule -a kitty desktop=1 follow=off -o
+kitty &
+

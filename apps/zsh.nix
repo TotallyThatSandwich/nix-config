@@ -10,6 +10,7 @@
       	shellAliases = {
         	ll = "ls -l";
         	update = "sudo nixos-rebuild switch";
+			update-reboot = "sudo nixos-rebuild switch && sudo reboot now";
 			upgrade = "sudo nixos-rebuild switch --upgrade";
 			cd = "z";
 			sesh = "~/projects/scripts/sesh.sh";
