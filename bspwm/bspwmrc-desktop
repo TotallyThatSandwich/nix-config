@@ -1,5 +1,7 @@
 #! /bin/sh
 
+pgrep -x sxhkd > /dev/null || sxhkd -c /etc/nixconfig/bspwm/sxhkdrc &
+
 xrandr --output DP-4 --primary --mode 1920x1080 --rotate normal --output HDMI-0 --mode 1920x1080 --rotate normal --left-of DP-4
 
 # Monitors
@@ -53,9 +55,18 @@ bspc rule -a Thunderbird floating=on
 bspc rule -a Yad floating=on
 
 # Autostart
-xinput --disable 10
-xinput --disable 9
 ~/.config/polybar/launch.sh
 picom &
 feh --bg-center --bg-fill ./Pictures/background.jpg
 dunst &
+
+
+bspc rule -a discord desktop=discord follow=off
+discord &
+
+bspc rule -a firefox desktop=6 follow=off -o
+firefox &
+
+bspc rule -a kitty desktop=1 follow=off -o
+kitty &
+

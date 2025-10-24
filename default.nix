@@ -9,6 +9,7 @@
       ./home-manager.nix
 	  ./bspwm/bspwm.nix
       ./nvidia.nix
+	  ./virtualisation.nix
     ];
 
   # Bootloader.
@@ -144,7 +145,7 @@
   users.users.hamish = {
     isNormalUser = true;
     description = "Hamish Mcdonald";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd"];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird

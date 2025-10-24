@@ -16,16 +16,18 @@ in {
 
   # Polybar config.ini written inline
   home.file."${polybarDir}/config.ini".text = ''
-      [colors]
-      background = ${gruvboxColors.background}
-      foreground = ${gruvboxColors.foreground}
-      primary    = ${gruvboxColors.primary}
-      secondary  = ${gruvboxColors.secondary}
-      urgent     = ${gruvboxColors.urgent}
-      gray       = ${gruvboxColors.gray}
-      black      = ${gruvboxColors.black}
+      ;[colors]
+      ;background = ${gruvboxColors.background}
+      ;foreground = ${gruvboxColors.foreground}
+      ;primary    = ${gruvboxColors.primary}
+      ;secondary  = ${gruvboxColors.secondary}
+      ;urgent     = ${gruvboxColors.urgent}
+      ;gray       = ${gruvboxColors.gray}
+      ;black      = ${gruvboxColors.black}
 
       [bar/main]
+	  monitor = DP-4
+
       width = 100%
       height = 28pt
 	  radius = 6
@@ -48,6 +50,33 @@ in {
 	  padding-right = 1
 	  module-margin = 1
 	  separator = |
+		
+	  [bar/side]
+	  monitor = HDMI-0
+
+      width = 100%
+      height = 28pt
+	  radius = 6
+
+	  border-size = 4pt
+	  border-color = #00000000
+      
+	  background = ${gruvboxColors.background}
+      foreground = ${gruvboxColors.foreground}
+      
+	  font-0 = "JetBrainsMono NFM:style=Regular:size=12;2"
+      
+	  modules-left = bspwm active-window
+      modules-center = 
+      modules-right = 
+	  
+	  line-size = 3pt
+	  
+	  padding-left = 0
+	  padding-right = 1
+	  module-margin = 1
+	  separator = |
+
 
       [module/bspwm]
       type = internal/bspwm
@@ -58,10 +87,10 @@ in {
 	  ws-icon-3 = 3;3
 	  ws-icon-4 = 4;4
 	  ws-icon-5 = 5;5
-	  ws-icon-6 = 6;6
-	  ws-icon-7 = 7;7
-	  ws-icon-8 = 8;8
-	  ws-icon-9 = 9;9
+	  ws-icon-6 = 6;1
+	  ws-icon-7 = 7;2
+	  ws-icon-8 = 8;3
+	  ws-icon-9 = 9;4
 
 
       label-focused = %icon%
@@ -80,7 +109,7 @@ in {
 	  label-empty = 
       label-empty-padding = 1 
 	 
-	  pin-workspaces = false
+	  pin-workspaces = true
 
 	  label-separator =  
 	  label-separator-padding = 2
@@ -205,9 +234,8 @@ in {
 		while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 		# Launch polybar for all monitors
-		for m in $(polybar --list-monitors | cut -d":" -f1); do
-    		MONITOR=$m polybar -c ~/.config/polybar/config.ini main &
-		done
+    	polybar -c ~/.config/polybar/config.ini main &
+		polybar -c ~/.config/polybar/config.ini side &
   	'';
 	executable = true;
   };
