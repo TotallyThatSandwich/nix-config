@@ -84,6 +84,7 @@
 	pkgs.unzip
 	pkgs.termius
 	pkgs.darktable
+	pkgs.gparted
 
 	pkgs.redis
 	pkgs.postgresql

@@ -16,15 +16,6 @@ in {
 
   # Polybar config.ini written inline
   home.file."${polybarDir}/config.ini".text = ''
-      [colors]
-      background = ${gruvboxColors.background}
-      foreground = ${gruvboxColors.foreground}
-      primary    = ${gruvboxColors.primary}
-      secondary  = ${gruvboxColors.secondary}
-      urgent     = ${gruvboxColors.urgent}
-      gray       = ${gruvboxColors.gray}
-      black      = ${gruvboxColors.black}
-
       [bar/main]
       width = 100%
       height = 28pt

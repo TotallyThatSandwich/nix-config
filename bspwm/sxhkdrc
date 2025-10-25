@@ -58,8 +58,8 @@ alt + space
 alt + shift + s
 	rofi -show ssh -terminal kitty
 
-alt + shift + b
-	/home/hamish/.config/rofi/scripts/rofi-bluetooth/rofi-bluetooth
+super + x
+	rofi -show power-menu -modi power-menu:/home/hamish/.config/rofi/scripts/rofi-power-menu -theme ~/.config/rofi/gruvbox-material.rasi
 
 #
 # Volume
