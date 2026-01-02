@@ -4,12 +4,153 @@ let
 	home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
 	hostname = config.networking.hostName;
 
+	# Common packages shared across all hosts
+	commonPackages = with pkgs; [
+		# Core tools
+		wget
+		tmux
+		git
+
+		# Terminal enhancements
+		oh-my-posh
+		fd
+		eza
+		bat
+		zoxide
+		fzf
+		thefuck
+		git-credential-manager
+
+		# Fetch tools
+		nerdfetch
+		freshfetch
+		jp2a
+
+		# Utilities
+		bc
+		zip
+		unzip
+
+		# Fonts
+		(pkgs.nerdfonts.override {
+			fonts = [
+				"FiraCode"
+				"JetBrainsMono"
+			];
+		})
+	];
+
+	# Desktop-specific packages
+	desktopPackages = with pkgs; [
+		# File managers
+		nemo
+
+		# Audio
+		pavucontrol
+
+		# Applications
+		spotify
+		discord
+		libreoffice-qt6
+		dbeaver-bin
+		vscodium
+		sabnzbd
+		localsend
+		deluge
+		nzbget
+		vlc
+		postman
+		termius
+		darktable
+		gparted
+
+		# Development tools
+		redis
+		postgresql
+		infisical
+		shellify
+		ansible
+		cloudflared
+		kubectl
+		kubernetes-helm
+		openssl
+	];
+
+	# Laptop-specific packages
+	laptopPackages = with pkgs; [
+		# File managers
+		nemo
+
+		# Audio
+		pavucontrol
+
+		# Applications
+		spotify
+		discord
+		libreoffice-qt6
+		vscodium
+		localsend
+		vlc
+
+		# Development tools
+		redis
+		postgresql
+		infisical
+		shellify
+		ansible
+		cloudflared
+		kubectl
+		kubernetes-helm
+		openssl
+	];
+
+	# Select packages based on hostname
+	hostnamePackages = if hostname == "nixos-desktop" then
+		desktopPackages
+	else if hostname == "nixos-laptop" then
+		laptopPackages
+	else
+		[]; # fallback to no additional packages
+
+	# Select polybar config based on hostname
 	polybar = if hostname == "nixos-desktop" then
 		./apps/polybar-desktop.nix
 	else if hostname == "nixos-laptop" then
 		./apps/polybar-laptop.nix
 	else
 		./apps/polybar-laptop.nix; # fallback
+
+	# Common imports for all hosts
+	commonImports = [
+		./apps/kitty.nix
+		./apps/zsh.nix
+		./apps/neovim.nix
+		./apps/gtk.nix
+		./apps/neofetch.nix
+		./apps/tmux.nix
+	];
+
+	# Desktop-specific imports
+	desktopImports = [
+		./apps/picom.nix
+		./apps/rofi.nix
+		polybar
+	];
+
+	# Laptop-specific imports
+	laptopImports = [
+		./apps/picom.nix
+		./apps/rofi.nix
+		polybar
+	];
+
+	# Select imports based on hostname
+	hostnameImports = if hostname == "nixos-desktop" then
+		desktopImports
+	else if hostname == "nixos-laptop" then
+		laptopImports
+	else
+		[]; # fallback
 
 in
 
@@ -26,86 +167,10 @@ in
 
 		fonts.fontconfig.enable = true;
 
-		home.packages = with pkgs; [
-			# Core tools
-			wget
-			tmux
-			git
+		# Combine common and hostname-specific packages
+		home.packages = commonPackages ++ hostnamePackages;
 
-			# Terminal enhancements
-			oh-my-posh
-			fd
-			eza
-			bat
-			zoxide
-			fzf
-			thefuck
-			git-credential-manager
-
-			# Fetch tools
-			nerdfetch
-			freshfetch
-			jp2a
-
-			# Utilities
-			bc
-			zip
-			unzip
-
-			# File managers
-			nemo
-
-			# Audio
-			pavucontrol
-
-			# Applications
-			spotify
-			discord
-			libreoffice-qt6
-			dbeaver-bin
-			vscodium
-			sabnzbd
-			localsend
-			deluge
-			nzbget
-			vlc
-			postman
-			termius
-			darktable
-			gparted
-
-			# Development tools
-			redis
-			postgresql
-			infisical
-			shellify
-			ansible
-			cloudflared
-			kubectl
-			kubernetes-helm
-			openssl
-
-			# Fonts
-			(pkgs.nerdfonts.override {
-				fonts = [
-					"FiraCode"
-					"JetBrainsMono"
-				];
-			})
-		];
-
-		imports = [
-			./apps/kitty.nix
-			./apps/zsh.nix
-			./apps/neovim.nix
-			./apps/gtk.nix
-			./apps/neofetch.nix
-			./apps/picom.nix
-			./apps/tmux.nix
-			./apps/rofi.nix
-
-			polybar
-		];
-
+		# Combine common and hostname-specific imports
+		imports = commonImports ++ hostnameImports;
 	};
 }
