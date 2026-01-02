@@ -42,60 +42,20 @@
   environment.localBinInPath = true;
  
   environment.systemPackages = [
-    pkgs.wget
-    pkgs.tmux
-    pkgs.git
-	
-	# fetch
-    pkgs.neofetch
-	pkgs.nerdfetch
-	pkgs.freshfetch
-    pkgs.jp2a
+	# System-level hardware and service packages
 
-	# bluetooth
+	# Bluetooth system services
 	pkgs.bluez
-	pkgs.bc
 	pkgs.blueman
 
-	# brightness
+	# Hardware controls
 	pkgs.brightnessctl
-	
-	# audio
+
+	# System audio integration
 	pkgs.polybar-pulseaudio-control
-	pkgs.pavucontrol
-	
-	pkgs.nemo
+
+	# System settings
 	pkgs.gnome-tweaks
-
-	# apps
-	pkgs.spotify
-	pkgs.discord
-    pkgs.kitty
-	pkgs.libreoffice-qt6
-	pkgs.dbeaver-bin
-	pkgs.vscodium
-	pkgs.sabnzbd
-	pkgs.localsend
-	pkgs.deluge
-	pkgs.nzbget
-	pkgs.vlc
-	pkgs.postman
-	pkgs.zip
-	pkgs.unzip
-	pkgs.termius
-	pkgs.darktable
-	pkgs.gparted
-
-	pkgs.redis
-	pkgs.postgresql
-	pkgs.infisical
-	pkgs.shellify
-	pkgs.ansible
-	pkgs.cloudflared
-	pkgs.kubectl
-	pkgs.kubernetes-helm
-	pkgs.openssl
-
   ];
 	
   services.xserver = {
