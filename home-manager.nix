@@ -104,11 +104,27 @@ let
 		openssl
 	];
 
+	# WSL-specific packages (CLI only, no GUI apps)
+	wslPackages = with pkgs; [
+		# Development tools
+		redis
+		postgresql
+		infisical
+		shellify
+		ansible
+		cloudflared
+		kubectl
+		kubernetes-helm
+		openssl
+	];
+
 	# Select packages based on hostname
 	hostnamePackages = if hostname == "nixos-desktop" then
 		desktopPackages
 	else if hostname == "nixos-laptop" then
 		laptopPackages
+	else if hostname == "nixos-wsl" then
+		wslPackages
 	else
 		[]; # fallback to no additional packages
 
@@ -130,6 +146,15 @@ let
 		./apps/tmux.nix
 	];
 
+	# WSL-specific common imports (no GTK)
+	wslCommonImports = [
+		./apps/kitty.nix
+		./apps/zsh.nix
+		./apps/neovim.nix
+		./apps/neofetch.nix
+		./apps/tmux.nix
+	];
+
 	# Desktop-specific imports
 	desktopImports = [
 		./apps/picom.nix
@@ -144,11 +169,24 @@ let
 		polybar
 	];
 
+	# WSL-specific imports (no window manager components)
+	wslImports = [
+		# WSL doesn't need picom, rofi, or polybar
+	];
+
+	# Select common imports based on hostname
+	selectedCommonImports = if hostname == "nixos-wsl" then
+		wslCommonImports
+	else
+		commonImports;
+
 	# Select imports based on hostname
 	hostnameImports = if hostname == "nixos-desktop" then
 		desktopImports
 	else if hostname == "nixos-laptop" then
 		laptopImports
+	else if hostname == "nixos-wsl" then
+		wslImports
 	else
 		[]; # fallback
 
@@ -171,6 +209,6 @@ in
 		home.packages = commonPackages ++ hostnamePackages;
 
 		# Combine common and hostname-specific imports
-		imports = commonImports ++ hostnameImports;
+		imports = selectedCommonImports ++ hostnameImports;
 	};
 }
